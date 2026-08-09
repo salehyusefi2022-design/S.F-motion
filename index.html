@@ -549,7 +549,6 @@ footer a:hover { color: #fff; }
     <div class="hero-content">
       <div class="hero-left animate-on-scroll">
         <h3>Hey, I'm Saleh</h3>
-        <!-- UPDATED TITLE TO VIDEO EDITOR -->
         <h1 class="gradient-scroll-text" id="gradientText">Video<br>Editor</h1>
       </div>
 
@@ -682,7 +681,7 @@ footer a:hover { color: #fff; }
     </div>
   </section>
 
-  <!-- BOOK A MEETING SECTION -->
+  <!-- BOOK A MEETING SECTION (FORMSPREE INTEGRATED) -->
   <section class="pad" id="booking">
     <span class="sec-tag animate-on-scroll">LET'S TALK</span>
     <h1 class="sec-title animate-on-scroll">Schedule a Discovery Call</h1>
@@ -694,22 +693,22 @@ footer a:hover { color: #fff; }
         <p style="font-size: 13px; color: var(--accent-blue);">● Instant Confirmation via Email</p>
       </div>
 
-      <form class="booking-form" onsubmit="event.preventDefault(); alert('Meeting request submitted successfully!');">
+      <form class="booking-form" action="https://formspree.io/f/mljrjdrd" method="POST">
         <div class="form-group">
-          <input type="text" placeholder="Your Name" required>
+          <input type="text" name="name" placeholder="Your Name" required>
         </div>
         <div class="form-group">
-          <input type="email" placeholder="Your Email Address" required>
+          <input type="email" name="email" placeholder="Your Email Address" required>
         </div>
         <div class="form-group">
-          <input type="date" required>
+          <input type="date" name="date" required>
         </div>
         <div class="form-group">
-          <select required>
+          <select name="time" required>
             <option value="" disabled selected>Select Preferred Time</option>
-            <option>10:00 AM - 11:00 AM</option>
-            <option>02:00 PM - 03:00 PM</option>
-            <option>06:00 PM - 07:00 PM</option>
+            <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+            <option value="02:00 PM - 03:00 PM">02:00 PM - 03:00 PM</option>
+            <option value="06:00 PM - 07:00 PM">06:00 PM - 07:00 PM</option>
           </select>
         </div>
         <button type="submit" class="btn-submit">Confirm Meeting Request</button>
