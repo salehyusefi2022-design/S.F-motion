@@ -65,7 +65,7 @@ body {
 .aurora-2 {
   width: 560px; height: 560px;
   top: 10%; right: 4%;
-  background: radial-gradient(circle at 60% 40%, rgba(129,140,248,0.4), transparent 70%);
+  background: radial-gradient(circle at 60% 40%, rgba(167,139,250,0.4), transparent 70%);
   animation: driftB 32s ease-in-out infinite;
 }
 
@@ -74,6 +74,58 @@ body {
   bottom: -320px; left: 30%;
   background: radial-gradient(circle at 50% 50%, rgba(56,189,248,0.28), transparent 70%);
   animation: driftC 38s ease-in-out infinite;
+}
+
+/* ============================================================
+   SIGNATURE ARC — the entrance shape, drawn once on load
+   ============================================================ */
+.hero-arc-wrapper {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 1400px;
+  height: 460px;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-arc-svg { width: 100%; height: 100%; display: block; }
+
+.arc-path {
+  stroke-dasharray: 2600;
+  stroke-dashoffset: 2600;
+  animation: drawArc 2.6s var(--ease-premium) 0.3s forwards;
+}
+
+.arc-bloom {
+  opacity: 0;
+  animation: bloomIn 2.5s ease-out 0.6s forwards;
+}
+
+@keyframes drawArc {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes bloomIn {
+  to { opacity: 0.85; }
+}
+
+.light-stripes {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent, transparent 50px,
+    rgba(56, 189, 248, 0.03) 50px, rgba(56, 189, 248, 0.03) 51px
+  );
+  mask-image: radial-gradient(ellipse at top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+  -webkit-mask-image: radial-gradient(ellipse at top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+  opacity: 0;
+  animation: bloomIn 3s ease-out 0.5s forwards;
 }
 
 @keyframes driftA {
@@ -335,21 +387,29 @@ nav {
 }
 
 .hero-h1 {
-  font-size: clamp(42px, 6.2vw, 78px);
+  font-size: clamp(42px, 6.2vw, 80px);
   font-weight: 800;
   line-height: 1.06;
   letter-spacing: -2.6px;
   margin-bottom: 26px;
-  background: linear-gradient(180deg, #ffffff 35%, #b6c2ff 100%);
+  background: linear-gradient(180deg, #ffffff 30%, #ccd6ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 40px rgba(56, 189, 248, 0.18));
 }
 
 .hero-h1 em {
   font-style: normal;
-  background: linear-gradient(120deg, #38bdf8, #a78bfa);
+  background: linear-gradient(115deg, #38bdf8 10%, #a78bfa 55%, #f472b6 95%);
+  background-size: 200% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: shimmerText 6s ease-in-out infinite;
+}
+
+@keyframes shimmerText {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 .hero-p {
@@ -662,13 +722,42 @@ footer a:hover { color: var(--accent-cyan); }
   <!-- HERO SECTION -->
   <div class="hero" id="heroSection">
 
+    <div class="hero-arc-wrapper">
+      <div class="light-stripes"></div>
+      <svg class="hero-arc-svg" viewBox="0 0 1400 420" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="arcCoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#38bdf8" stop-opacity="0" />
+            <stop offset="22%" stop-color="#38bdf8" stop-opacity="0.7" />
+            <stop offset="50%" stop-color="#ffffff" stop-opacity="1" />
+            <stop offset="78%" stop-color="#a78bfa" stop-opacity="0.7" />
+            <stop offset="100%" stop-color="#a78bfa" stop-opacity="0" />
+          </linearGradient>
+          <linearGradient id="arcBloomGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0" />
+            <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.85" />
+            <stop offset="100%" stop-color="#7c3aed" stop-opacity="0" />
+          </linearGradient>
+          <filter id="glowBloom" x="-20%" y="-40%" width="140%" height="200%">
+            <feGaussianBlur stdDeviation="32" />
+          </filter>
+          <filter id="glowMid" x="-20%" y="-20%" width="140%" height="160%">
+            <feGaussianBlur stdDeviation="10" />
+          </filter>
+        </defs>
+        <path class="arc-bloom" d="M -100 420 Q 700 -30 1500 420" stroke="url(#arcBloomGrad)" stroke-width="70" fill="none" filter="url(#glowBloom)" />
+        <path class="arc-path" d="M -100 420 Q 700 -30 1500 420" stroke="url(#arcCoreGrad)" stroke-width="12" fill="none" filter="url(#glowMid)" opacity="0.9" />
+        <path class="arc-path" d="M -100 420 Q 700 -30 1500 420" stroke="url(#arcCoreGrad)" stroke-width="2.5" fill="none" />
+      </svg>
+    </div>
+
     <div class="hero-pill fade-in-entry delay-1">
       ✦ <span>Saleh Yusefi</span> — Video Editor & Sound Designer
     </div>
 
-    <h1 class="hero-h1 fade-in-entry delay-1">Build High-Retention<br><em>Edits</em> For Modern Brands</h1>
+    <h1 class="hero-h1 fade-in-entry delay-1">Podcasts, YouTube & <em>Motion</em><br>Edited To Keep People Watching</h1>
 
-    <p class="hero-p fade-in-entry delay-2">Every cut, transition, and beat is engineered to hold attention — precise motion graphics, rhythm-driven pacing, and sound design built for the first three seconds and every second after.</p>
+    <p class="hero-p fade-in-entry delay-2">I edit long-form podcasts into clean, punchy episodes, cut YouTube videos that keep watch-time high, and build motion graphics and sound design for short-form content that stops the scroll.</p>
 
     <div class="hero-btns fade-in-entry delay-2">
       <a href="#booking" class="btn-main">Get Started</a>
@@ -679,8 +768,8 @@ footer a:hover { color: var(--accent-cyan); }
   <!-- MARQUEE -->
   <div class="marquee-wrap fade-in-entry delay-3">
     <div class="marquee-track">
-      <span>Motion Graphics</span><span>Sound Design</span><span>Short-Form Editing</span><span>Color Grading</span><span>Retention Cuts</span>
-      <span>Motion Graphics</span><span>Sound Design</span><span>Short-Form Editing</span><span>Color Grading</span><span>Retention Cuts</span>
+      <span>Podcast Editing</span><span>YouTube Editing</span><span>Motion Graphics</span><span>Sound Design</span><span>Short-Form Cuts</span><span>Color Grading</span>
+      <span>Podcast Editing</span><span>YouTube Editing</span><span>Motion Graphics</span><span>Sound Design</span><span>Short-Form Cuts</span><span>Color Grading</span>
     </div>
   </div>
 
@@ -689,7 +778,7 @@ footer a:hover { color: var(--accent-cyan); }
     <div class="section-head reveal">
       <span class="eyebrow-mono">Selected Work</span>
       <h2>Featured Cuts</h2>
-      <p>A closer look at recent projects — each edit built around a different retention strategy and visual language.</p>
+      <p>Podcast episodes, YouTube uploads, and short-form cuts — each built around a different retention strategy and visual language.</p>
     </div>
 
     <div class="grid-3 reveal-stagger reveal">
@@ -698,7 +787,7 @@ footer a:hover { color: var(--accent-cyan); }
           <img src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=600&q=80" class="work-img" alt="Lamborghini">
         </div>
         <div class="work-info">
-          <span class="tag">Motion Graphics</span>
+          <span class="tag">Short-Form / Motion Graphics</span>
           <h3>Lamborghini Story Cut</h3>
           <p>Fast-paced motion graphics timed to engine sound design.</p>
         </div>
@@ -708,9 +797,9 @@ footer a:hover { color: var(--accent-cyan); }
           <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=600&q=80" class="work-img" alt="Samsung">
         </div>
         <div class="work-info">
-          <span class="tag">Documentary</span>
+          <span class="tag">YouTube / Documentary</span>
           <h3>Samsung History Story</h3>
-          <p>A documentary-style narrative edit paced for long-form retention.</p>
+          <p>A documentary-style YouTube edit paced for long-form watch-time.</p>
         </div>
       </a>
       <a href="https://f.io/kKidG6PI" target="_blank" class="work-card stagger-item">
@@ -718,9 +807,9 @@ footer a:hover { color: var(--accent-cyan); }
           <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" class="work-img" alt="Pavel Durov">
         </div>
         <div class="work-info">
-          <span class="tag">High Engagement</span>
+          <span class="tag">Podcast Clip</span>
           <h3>Pavel Durov Story</h3>
-          <p>A high-retention edit built for maximum watch-through rate.</p>
+          <p>A podcast clip re-cut for short-form with captions and sound design.</p>
         </div>
       </a>
     </div>
