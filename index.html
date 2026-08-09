@@ -13,9 +13,8 @@
   --text-main: #ffffff;
   --text-muted: #94a3b8;
   --accent-cyan: #38bdf8;
-  --accent-blue: #3b82f6;
   --glass-bg: rgba(15, 23, 42, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.08);
   --font-sans: 'Plus Jakarta Sans', sans-serif;
 }
 
@@ -168,85 +167,48 @@ nav {
 .hero {
   position: relative;
   text-align: center;
-  padding-top: 100px;
+  padding-top: 130px;
   padding-bottom: 40px;
 }
 
 /* ============================================================
-   EXACT NEONE ARC GLOW (دقیقاً مشابه تصویر رفرنس)
+   EXACT VECTOR ARC GLOW (کمان نوری برداری دقیقاً مشابه رفرنس)
    ============================================================ */
 .hero-arc-wrapper {
   position: absolute;
-  top: -40px;
+  top: -20px;
   left: 50%;
   transform: translateX(-50%);
-  width: 900px;
-  height: 450px;
+  width: 100%;
+  max-width: 1400px;
+  height: 480px;
   pointer-events: none;
   z-index: -1;
   overflow: hidden;
 }
 
-.hero-arc-main {
-  position: absolute;
-  top: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 780px;
-  height: 780px;
-  border-radius: 50%;
-  border: 2.5px solid transparent;
-  border-top-color: #e0f2fe;
-  background: transparent;
-  box-shadow: 
-    0 -12px 35px 2px rgba(56, 189, 248, 0.8),
-    0 -30px 80px 10px rgba(59, 130, 246, 0.5),
-    inset 0 12px 35px rgba(56, 189, 248, 0.3);
-}
-
-.hero-arc-main::before {
-  content: '';
-  position: absolute;
-  top: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 820px;
-  height: 820px;
-  border-radius: 50%;
-  border: 1px solid transparent;
-  border-top-color: rgba(186, 230, 253, 0.6);
-  filter: blur(1px);
-}
-
-.hero-arc-main::after {
-  content: '';
-  position: absolute;
-  top: -30px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  height: 180px;
-  background: radial-gradient(ellipse at top, rgba(56, 189, 248, 0.35) 0%, rgba(3, 7, 18, 0) 75%);
-  filter: blur(20px);
-}
-
-/* VERTICAL LIGHT LINES BEHIND ARC */
-.light-lines {
+/* VERTICAL LIGHT STRIPES */
+.light-stripes {
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 600px;
-  height: 300px;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: repeating-linear-gradient(
     90deg,
     transparent,
-    transparent 40px,
-    rgba(56, 189, 248, 0.03) 40px,
-    rgba(56, 189, 248, 0.03) 41px
+    transparent 50px,
+    rgba(56, 189, 248, 0.02) 50px,
+    rgba(56, 189, 248, 0.02) 51px
   );
-  mask-image: radial-gradient(ellipse at top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
-  -webkit-mask-image: radial-gradient(ellipse at top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
+  mask-image: radial-gradient(ellipse at top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+  -webkit-mask-image: radial-gradient(ellipse at top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 80%);
+}
+
+.hero-arc-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .hero-pill {
@@ -272,7 +234,7 @@ nav {
   line-height: 1.08;
   letter-spacing: -2.5px;
   margin-bottom: 24px;
-  background: linear-gradient(180deg, #ffffff 30%, #93c5fd 100%);
+  background: linear-gradient(180deg, #ffffff 40%, #a5b4fc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -332,7 +294,7 @@ nav {
   border-top-right-radius: 16px;
   padding: 24px;
   backdrop-filter: blur(20px);
-  box-shadow: 0 -20px 80px rgba(0, 0, 0, 0.9), 0 0 50px rgba(56, 189, 248, 0.15);
+  box-shadow: 0 -20px 80px rgba(0, 0, 0, 0.9), 0 0 50px rgba(56, 189, 248, 0.12);
   position: relative;
 }
 
@@ -487,10 +449,42 @@ footer {
 
   <!-- HERO SECTION -->
   <div class="hero">
-    <!-- EXACT NEONE ARC SHAPE WITH VERTICAL LINES -->
+    <!-- PERFECT VECTOR ARC GLOW -->
     <div class="hero-arc-wrapper">
-      <div class="light-lines"></div>
-      <div class="hero-arc-main"></div>
+      <div class="light-stripes"></div>
+      <svg class="hero-arc-svg" viewBox="0 0 1400 420" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="arcCoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#38bdf8" stop-opacity="0" />
+            <stop offset="25%" stop-color="#38bdf8" stop-opacity="0.6" />
+            <stop offset="50%" stop-color="#ffffff" stop-opacity="1" />
+            <stop offset="75%" stop-color="#38bdf8" stop-opacity="0.6" />
+            <stop offset="100%" stop-color="#38bdf8" stop-opacity="0" />
+          </linearGradient>
+
+          <linearGradient id="arcBloomGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#1d4ed8" stop-opacity="0" />
+            <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.8" />
+            <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0" />
+          </linearGradient>
+
+          <filter id="glowBloom" x="-20%" y="-40%" width="140%" height="200%">
+            <feGaussianBlur stdDeviation="30" />
+          </filter>
+          <filter id="glowMid" x="-20%" y="-20%" width="140%" height="160%">
+            <feGaussianBlur stdDeviation="10" />
+          </filter>
+        </defs>
+
+        <!-- Deep Ambient Blue Glow -->
+        <path d="M -100 420 Q 700 -20 1500 420" stroke="url(#arcBloomGrad)" stroke-width="70" fill="none" filter="url(#glowBloom)" opacity="0.85" />
+        
+        <!-- Medium Brightness Halo -->
+        <path d="M -100 420 Q 700 -20 1500 420" stroke="url(#arcCoreGrad)" stroke-width="12" fill="none" filter="url(#glowMid)" opacity="0.9" />
+
+        <!-- Sharp Bright Core Arc -->
+        <path d="M -100 420 Q 700 -20 1500 420" stroke="url(#arcCoreGrad)" stroke-width="2.5" fill="none" />
+      </svg>
     </div>
     
     <div class="hero-pill fade-in-entry delay-1">
