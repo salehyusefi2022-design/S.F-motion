@@ -6,22 +6,22 @@
 <title>S.F Motion — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   NEONE / GLOW ARC THEME (NEO-DARK CYAN & BLUE)
+   NEONE / GLOW ARC THEME WITH FULL ANIMATIONS & AUDIO CONTROLS
    ============================================================ */
 :root {
-  --white: #ffffff;
-  --grey: #8a8f9d;
-  --bg-dark: #030509;
-  --card-bg: rgba(10, 14, 24, 0.5);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --bg-dark: #02040a;
+  --text-main: #ffffff;
+  --text-muted: #8e9aae;
   --accent-cyan: #00d2ff;
   --accent-blue: #3b82f6;
-  --accent-glow: rgba(0, 210, 255, 0.35);
-  --font-main: 'Inter', sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
+  --glow-blue: rgba(59, 130, 246, 0.4);
+  --glass-bg: rgba(10, 14, 24, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,32 +29,41 @@ html { scroll-behavior: smooth; }
 
 body {
   background-color: var(--bg-dark);
-  color: var(--white);
-  font-family: var(--font-main);
+  color: var(--text-main);
+  font-family: var(--font-sans);
   overflow-x: hidden;
   min-height: 100vh;
-  position: relative;
   -webkit-font-smoothing: antialiased;
 }
 
-/* BACKGROUND PARTICLES CONTAINER */
-.particles {
+/* BACKGROUND PARTICLES & AMBIENT ANIMATION */
+.bg-glow-container {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0; left: 0; right: 0; bottom: 0;
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
+}
+
+.bg-ambient {
+  position: absolute;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw;
+  height: 600px;
+  background: radial-gradient(ellipse at top, rgba(37, 99, 235, 0.25) 0%, rgba(2, 4, 10, 0) 70%);
 }
 
 .particle {
   position: absolute;
   width: 2px;
   height: 2px;
-  background: rgba(0, 210, 255, 0.6);
+  background: #ffffff;
   border-radius: 50%;
-  box-shadow: 0 0 8px rgba(0, 210, 255, 0.8);
-  animation: floatUp 12s infinite linear;
+  opacity: 0.3;
+  box-shadow: 0 0 6px #fff;
+  animation: floatUp 10s infinite linear;
 }
 
 @keyframes floatUp {
@@ -63,307 +72,314 @@ body {
   100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
 }
 
-/* MAIN CONTAINER */
-.main-wrapper {
-  max-width: 1200px;
+/* ENTRY ANIMATIONS */
+.fade-in-entry {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: entryFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+
+@keyframes entryFade {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.wrapper {
+  max-width: 1240px;
   margin: 0 auto;
   padding: 0 24px;
   position: relative;
   z-index: 1;
 }
 
-/* NAVIGATION */
+/* NAVBAR */
 nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 30px 0;
-  margin-bottom: 20px;
+  padding: 28px 0;
 }
 
-.brand {
-  font-weight: 800;
-  font-size: 20px;
-  letter-spacing: -0.5px;
+.logo {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: -0.5px;
 }
 
-.brand-icon {
-  width: 12px;
-  height: 12px;
+.logo-sparkle {
+  width: 14px;
+  height: 14px;
   background: var(--accent-cyan);
   transform: rotate(45deg);
-  box-shadow: 0 0 10px var(--accent-cyan);
+  box-shadow: 0 0 12px var(--accent-cyan);
 }
 
-.nav-actions {
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: #fff; }
+
+.nav-cta {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.btn-glass {
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--white);
-  padding: 8px 18px;
-  border-radius: 30px;
-  font-weight: 500;
-  font-size: 13px;
-  text-decoration: none;
+/* AUDIO CONTROL BUTTON */
+.btn-audio {
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--glass-border);
-  backdrop-filter: blur(12px);
-  transition: all 0.3s ease;
-  display: inline-flex;
+  color: var(--white);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  transition: all 0.3s;
 }
 
-.btn-glass:hover {
+.btn-audio:hover {
   border-color: var(--accent-cyan);
   box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
-  transform: translateY(-2px);
 }
 
-/* HERO SECTION WITH ARC GLOW */
-.hero-section {
+.btn-get-started {
+  background: #ffffff;
+  color: #02040a;
+  padding: 10px 22px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.btn-get-started:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+}
+
+/* HERO SECTION WITH EXACT NEONE ARC */
+.hero {
   position: relative;
   text-align: center;
-  padding: 100px 20px 120px 20px;
-  overflow: hidden;
+  padding-top: 70px;
+  padding-bottom: 40px;
 }
 
-/* THE NEON GLOW ARC */
-.hero-arc-container {
+.arc-glow {
   position: absolute;
-  top: -10px;
+  top: -30px;
   left: 50%;
   transform: translateX(-50%);
-  width: 1000px;
-  height: 400px;
+  width: 850px;
+  height: 380px;
+  border-radius: 50%;
+  background: transparent;
+  border-top: 2px solid rgba(147, 197, 253, 0.9);
+  box-shadow: 0 -15px 50px rgba(59, 130, 246, 0.6), inset 0 15px 50px rgba(59, 130, 246, 0.2);
+  filter: blur(0.5px);
   pointer-events: none;
   z-index: -1;
 }
 
-.hero-arc {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background: transparent;
-  border-top: 2px solid rgba(0, 210, 255, 0.8);
-  box-shadow: 0 -20px 60px rgba(0, 210, 255, 0.4), inset 0 20px 60px rgba(59, 130, 246, 0.3);
-  filter: blur(0.5px);
-}
-
-.hero-badge {
+.hero-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(0, 210, 255, 0.06);
-  border: 1px solid rgba(0, 210, 255, 0.25);
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
   padding: 6px 16px;
-  border-radius: 30px;
-  font-size: 12px;
-  color: var(--accent-cyan);
-  margin-bottom: 28px;
-  box-shadow: 0 0 20px rgba(0, 210, 255, 0.15);
+  border-radius: 20px;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+  backdrop-filter: blur(10px);
 }
 
-.hero-title {
-  font-size: clamp(40px, 6.5vw, 76px);
+.hero-pill span { color: #fff; font-weight: 500; }
+
+.hero-h1 {
+  font-size: clamp(44px, 6vw, 78px);
   font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -2px;
-  margin-bottom: 20px;
-  background: linear-gradient(180deg, #ffffff 30%, #94a3b8 100%);
+  line-height: 1.05;
+  letter-spacing: -2.5px;
+  margin-bottom: 24px;
+  background: linear-gradient(180deg, #ffffff 40%, #a5b4fc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.hero-subtitle {
-  max-width: 620px;
+.hero-p {
+  max-width: 580px;
   margin: 0 auto 36px auto;
   font-size: 16px;
-  color: var(--grey);
+  color: var(--text-muted);
   line-height: 1.6;
   font-weight: 400;
 }
 
-.hero-ctas {
+.hero-btns {
   display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 16px;
+  gap: 14px;
+  margin-bottom: 70px;
 }
 
-.btn-primary-glow {
+.btn-main {
   background: #ffffff;
-  color: #030509;
+  color: #02040a;
   padding: 12px 28px;
-  border-radius: 30px;
-  font-weight: 600;
+  border-radius: 24px;
   font-size: 14px;
+  font-weight: 600;
   text-decoration: none;
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.4), 0 0 15px rgba(0, 210, 255, 0.5);
-  transition: all 0.3s ease;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.25);
+  transition: all 0.3s;
 }
 
-.btn-primary-glow:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.6), 0 0 25px rgba(0, 210, 255, 0.8);
-}
+.btn-main:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(255, 255, 255, 0.4); }
 
-.btn-secondary-glow {
-  background: rgba(255, 255, 255, 0.05);
+.btn-sub {
+  background: rgba(255, 255, 255, 0.04);
   color: #ffffff;
   padding: 12px 28px;
-  border-radius: 30px;
-  font-weight: 500;
+  border-radius: 24px;
   font-size: 14px;
+  font-weight: 500;
   text-decoration: none;
   border: 1px solid var(--glass-border);
-  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
 }
 
-.btn-secondary-glow:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.3);
-}
+.btn-sub:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.2); }
 
-/* SECTION COMMONS */
-section.pad { padding: 90px 0; border-top: 1px solid var(--glass-border); }
-
-.sec-tag {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  color: var(--accent-cyan);
-  letter-spacing: 1.5px;
-  margin-bottom: 12px;
-  display: block;
-  text-transform: uppercase;
-}
-
-.sec-title {
-  font-size: clamp(28px, 4vw, 42px);
-  font-weight: 700;
-  letter-spacing: -1px;
-  margin-bottom: 40px;
-}
-
-/* PORTFOLIO GRID */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-
-@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
-
-.card {
+/* DASHBOARD PREVIEW FRAME (REFERENCE STYLE) */
+.hero-dashboard-preview {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  border-radius: 20px;
-  overflow: hidden;
-  background: var(--card-bg);
-  backdrop-filter: blur(12px);
-  transition: all 0.4s ease;
-  text-decoration: none;
-  color: inherit;
-  display: block;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 -20px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(59, 130, 246, 0.15);
   position: relative;
 }
 
-.card:hover {
-  transform: translateY(-8px);
+.dash-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--glass-border);
+  margin-bottom: 20px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.dash-dots { display: flex; gap: 6px; }
+.dash-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+
+/* WORK GRID */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr; } .nav-links { display: none; } }
+
+.work-card {
+  background: rgba(15, 22, 38, 0.6);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.35s ease;
+  display: block;
+}
+
+.work-card:hover {
+  transform: translateY(-6px);
   border-color: rgba(0, 210, 255, 0.4);
   box-shadow: 0 10px 30px rgba(0, 210, 255, 0.15);
 }
 
-.card-thumb {
-  height: 200px;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #000;
-}
-
-.card-thumb img {
-  width: 100%; height: 100%;
+.work-img {
+  height: 190px;
+  width: 100%;
   object-fit: cover;
-  opacity: 0.7;
-  transition: transform 0.5s ease, opacity 0.5s ease;
+  background: #0d121e;
+  transition: transform 0.4s ease;
 }
 
-.card:hover .card-thumb img {
-  transform: scale(1.08);
-  opacity: 0.9;
+.work-card:hover .work-img {
+  transform: scale(1.05);
 }
 
-.card-body { padding: 20px; }
-.card-body h4 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
-.card-body p { color: var(--grey); font-size: 13px; font-weight: 300; line-height: 1.5; }
-.card-tag { font-family: var(--font-mono); font-size: 11px; color: var(--accent-cyan); margin-top: 14px; display: block; }
+.work-info { padding: 20px; text-align: left; }
+.work-info h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+.work-info p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
 
-/* SERVICES GRID */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+/* SECTIONS */
+section { padding: 90px 0; border-top: 1px solid var(--glass-border); }
+
+.sec-title {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  margin-bottom: 40px;
+  text-align: center;
 }
-
-@media (max-width: 768px) { .services-grid { grid-template-columns: 1fr; } }
-
-.service-card {
-  border: 1px solid var(--glass-border);
-  border-radius: 20px;
-  padding: 30px;
-  background: var(--card-bg);
-  backdrop-filter: blur(12px);
-  transition: all 0.35s ease;
-}
-
-.service-card:hover {
-  border-color: rgba(0, 210, 255, 0.4);
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 210, 255, 0.1);
-}
-
-.service-icon { font-size: 28px; margin-bottom: 16px; display: inline-block; }
-.service-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
-.service-card p { font-size: 13px; color: var(--grey); line-height: 1.6; }
 
 /* MEETING FORM SECTION */
-.meeting-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  align-items: center;
-  background: var(--card-bg);
+.booking-box {
+  background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  border-radius: 24px;
+  border-radius: 20px;
   padding: 40px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  max-width: 600px;
+  margin: 0 auto;
+  backdrop-filter: blur(20px);
 }
 
-@media (max-width: 850px) { .meeting-container { grid-template-columns: 1fr; } }
+.booking-box h3 { font-size: 22px; margin-bottom: 8px; text-align: center; }
+.booking-box p { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; text-align: center; }
 
-.meeting-info h3 { font-size: 24px; font-weight: 700; margin-bottom: 12px; }
-.meeting-info p { font-size: 14px; color: var(--grey); line-height: 1.6; margin-bottom: 24px; }
-
-.booking-form { display: flex; flex-direction: column; gap: 16px; }
-
+.form-group { margin-bottom: 16px; }
 .form-group input, .form-group select {
   width: 100%;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(0,0,0,0.3);
   border: 1px solid var(--glass-border);
+  padding: 14px 16px;
   border-radius: 12px;
-  padding: 14px 18px;
   color: #fff;
-  font-family: var(--font-main);
-  font-size: 13px;
+  font-family: var(--font-sans);
   outline: none;
   transition: border-color 0.3s;
 }
@@ -373,164 +389,126 @@ section.pad { padding: 90px 0; border-top: 1px solid var(--glass-border); }
   box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
 }
 
-.btn-submit {
-  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
-  color: #030509;
+.btn-form {
+  width: 100%;
+  background: #ffffff;
+  color: #02040a;
   border: none;
-  border-radius: 12px;
   padding: 14px;
+  border-radius: 12px;
   font-weight: 700;
-  font-size: 14px;
   cursor: pointer;
   transition: all 0.3s;
-  box-shadow: 0 0 20px rgba(0, 210, 255, 0.3);
 }
 
-.btn-submit:hover {
-  opacity: 0.95;
-  transform: translateY(-2px);
-  box-shadow: 0 0 30px rgba(0, 210, 255, 0.5);
+.btn-form:hover {
+  background: var(--accent-cyan);
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
 }
 
-/* FOOTER */
 footer {
+  padding: 40px 0;
+  border-top: 1px solid var(--glass-border);
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 30px 0;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--grey);
-  border-top: 1px solid var(--glass-border);
-  flex-wrap: wrap;
-  gap: 15px;
+  font-size: 13px;
+  color: var(--text-muted);
 }
-
-footer a { color: var(--grey); text-decoration: none; transition: color 0.2s; }
-footer a:hover { color: #fff; }
 </style>
 </head>
 <body>
 
-<!-- BACKGROUND PARTICLES -->
-<div class="particles">
+<!-- AUDIO TRACK BACKGROUND -->
+<audio id="bg-audio" loop preload="auto">
+  <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=ambient-piano-amp-strings-10711.mp3" type="audio/mpeg">
+</audio>
+
+<div class="bg-glow-container">
+  <div class="bg-ambient"></div>
   <div class="particle" style="left: 15%; animation-delay: 0s;"></div>
-  <div class="particle" style="left: 35%; animation-delay: 3s;"></div>
-  <div class="particle" style="left: 55%; animation-delay: 1s;"></div>
-  <div class="particle" style="left: 75%; animation-delay: 5s;"></div>
-  <div class="particle" style="left: 90%; animation-delay: 2s;"></div>
+  <div class="particle" style="left: 45%; animation-delay: 2s;"></div>
+  <div class="particle" style="left: 75%; animation-delay: 4s;"></div>
 </div>
 
-<div class="main-wrapper">
+<div class="wrapper">
 
-  <!-- NAVBAR -->
-  <nav>
-    <div class="brand"><div class="brand-icon"></div> S.F Motion</div>
-    <div class="nav-actions">
-      <a href="https://instagram.com/s.f_motion" target="_blank" class="btn-glass">📷 @s.f_motion</a>
-      <a href="mailto:contact.sfmotion@gmail.com" class="btn-glass">✉️ Contact</a>
+  <!-- NAV -->
+  <nav class="fade-in-entry">
+    <div class="logo">
+      <div class="logo-sparkle"></div>
+      S.F MOTION
+    </div>
+    <ul class="nav-links">
+      <li><a href="#work">Projects</a></li>
+      <li><a href="#booking">Book Call</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button class="btn-audio" id="audio-toggle">🎵 Play Sound</button>
+      <a href="#booking" class="btn-get-started">Get Started</a>
     </div>
   </nav>
 
-  <!-- HERO SECTION WITH ARC -->
-  <div class="hero-section">
-    <div class="hero-arc-container">
-      <div class="hero-arc"></div>
+  <!-- HERO -->
+  <div class="hero">
+    <div class="arc-glow"></div>
+    
+    <div class="hero-pill fade-in-entry delay-1">
+      ✦ <span>Saleh Yusefi</span> — Video Editor & Sound Designer
     </div>
 
-    <div class="hero-badge">✨ Saleh Yusefi — Video Editor</div>
-    <h1 class="hero-title">High-Retention Edits<br>For Modern Brands</h1>
-    <p class="hero-subtitle">Transforming raw footage into engaging visual stories with advanced motion graphics, dynamic pacing, and immersive sound design.</p>
-    
-    <div class="hero-ctas">
-      <a href="#booking" class="btn-primary-glow">Book a Call</a>
-      <a href="#work" class="btn-secondary-glow">Watch Portfolio</a>
+    <h1 class="hero-h1 fade-in-entry delay-1">Build High-Retention<br>Edits For Modern Brands</h1>
+
+    <p class="hero-p fade-in-entry delay-2">Crafting high-end short-form videos with precise motion graphics, maximize-style cuts, and rich sound design that hold audience attention.</p>
+
+    <div class="hero-btns fade-in-entry delay-2">
+      <a href="#booking" class="btn-main">Get Started</a>
+      <a href="#work" class="btn-sub">Watch Portfolio</a>
+    </div>
+
+    <!-- PREVIEW BOX (NEONE STYLE) -->
+    <div class="hero-dashboard-preview fade-in-entry delay-3" id="work">
+      <div class="dash-header">
+        <div class="dash-dots">
+          <div class="dash-dot"></div>
+          <div class="dash-dot"></div>
+          <div class="dash-dot"></div>
+        </div>
+        <div>SELECTED WORK PREVIEW</div>
+        <div>FEATURED CUTS</div>
+      </div>
+      <div class="grid-3">
+        <a href="https://f.io/G7dfumQS" target="_blank" class="work-card">
+          <img src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=600&q=80" class="work-img" alt="Lamborghini">
+          <div class="work-info">
+            <h3>Lamborghini Story Cut</h3>
+            <p>Motion Graphics & Fast Cuts</p>
+          </div>
+        </a>
+        <a href="https://f.io/XjRUnym5" target="_blank" class="work-card">
+          <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=600&q=80" class="work-img" alt="Samsung">
+          <div class="work-info">
+            <h3>Samsung History Story</h3>
+            <p>Documentary Short Style</p>
+          </div>
+        </a>
+        <a href="https://f.io/kKidG6PI" target="_blank" class="work-card">
+          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" class="work-img" alt="Pavel Durov">
+          <div class="work-info">
+            <h3>Pavel Durov Story</h3>
+            <p>High Engagement Retention Edit</p>
+          </div>
+        </a>
+      </div>
     </div>
   </div>
 
-  <!-- PORTFOLIO SECTION -->
-  <section class="pad" id="work">
-    <span class="sec-tag">BEHIND THE DESIGNS</span>
-    <h2 class="sec-title">Selected Projects</h2>
+  <!-- BOOKING SECTION -->
+  <section id="booking">
+    <div class="booking-box">
+      <h3>Book a Discovery Call</h3>
+      <p>Schedule a 1-on-1 meeting to discuss your video project goals.</p>
 
-    <div class="grid">
-      <a href="https://f.io/G7dfumQS" target="_blank" class="card">
-        <div class="card-thumb">
-          <img src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=800&q=80" alt="Lamborghini Story Cut">
-        </div>
-        <div class="card-body">
-          <h4>Lamborghini Story Cut</h4>
-          <p>Dynamic brand storytelling with high-impact motion graphics.</p>
-          <span class="card-tag">Watch on Frame.io ↗</span>
-        </div>
-      </a>
-
-      <a href="https://f.io/XjRUnym5" target="_blank" class="card">
-        <div class="card-thumb">
-          <img src="https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=800&q=80" alt="Samsung History Story">
-        </div>
-        <div class="card-body">
-          <h4>Samsung History Story</h4>
-          <p>Documentary-style short edit focused on brand evolution.</p>
-          <span class="card-tag">Watch on Frame.io ↗</span>
-        </div>
-      </a>
-
-      <a href="https://f.io/kKidG6PI" target="_blank" class="card">
-        <div class="card-thumb">
-          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="Pavel Durov Story">
-        </div>
-        <div class="card-body">
-          <h4>Pavel Durov Story</h4>
-          <p>Engaging narrative edit tailored for vertical social media.</p>
-          <span class="card-tag">Watch on Frame.io ↗</span>
-        </div>
-      </a>
-    </div>
-  </section>
-
-  <!-- SERVICES SECTION -->
-  <section class="pad" id="services">
-    <span class="sec-tag">WHAT I DO</span>
-    <h2 class="sec-title">Core Expertise</h2>
-
-    <div class="services-grid">
-      <div class="service-card">
-        <div class="service-icon">✨</div>
-        <h3>Motion Graphics</h3>
-        <p>Creating high-end 2D/3D visual animations, title reveals, and kinetic typography.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🎬</div>
-        <h3>Short-Form Editing</h3>
-        <p>Expertly crafted video editing for Shorts, Reels, and TikTok with high viewer retention.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">⚡</div>
-        <h3>Maximize Style Editing</h3>
-        <p>Ultra-engaging edits featuring fast visual transitions, sound effects, and graphical overlays.</p>
-      </div>
-      <div class="service-card">
-        <div class="service-icon">🎙️</div>
-        <h3>Podcast Highlights</h3>
-        <p>Multi-camera editing, audio enhancement, background noise removal, and animated captions.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- MEETING SECTION (FORMSPREE CONNECTED) -->
-  <section class="pad" id="booking">
-    <span class="sec-tag">LET'S TALK</span>
-    <h2 class="sec-title">Schedule a Discovery Call</h2>
-
-    <div class="meeting-container">
-      <div class="meeting-info">
-        <h3>Book a 1-on-1 Meeting</h3>
-        <p>Select your preferred date and time to discuss your video project and production goals.</p>
-        <p style="font-size: 13px; color: var(--accent-cyan);">● Direct Notification to Email</p>
-      </div>
-
-      <form class="booking-form" action="https://formspree.io/f/mljrjdrd" method="POST">
+      <form action="https://formspree.io/f/mljrjdrd" method="POST">
         <div class="form-group">
           <input type="text" name="name" placeholder="Your Name" required>
         </div>
@@ -548,22 +526,37 @@ footer a:hover { color: #fff; }
             <option value="06:00 PM - 07:00 PM">06:00 PM - 07:00 PM</option>
           </select>
         </div>
-        <button type="submit" class="btn-submit">Confirm Meeting Request</button>
+        <button type="submit" class="btn-form">Confirm Request</button>
       </form>
     </div>
   </section>
 
   <!-- FOOTER -->
   <footer>
-    <div>© 2026 S.F MOTION. ALL RIGHTS RESERVED.</div>
-    <div>
-      <a href="https://instagram.com/s.f_motion" target="_blank" style="margin-right: 15px;">INSTAGRAM</a>
-      <a href="mailto:contact.sfmotion@gmail.com" style="margin-right: 15px;">EMAIL</a>
-      <a href="https://wa.me/989396751044" target="_blank">WHATSAPP</a>
-    </div>
+    <div>© 2026 S.F MOTION. All rights reserved.</div>
+    <div>contact.sfmotion@gmail.com</div>
   </footer>
 
 </div>
+
+<script>
+// AUDIO TOGGLE SCRIPT
+const audio = document.getElementById('bg-audio');
+const audioBtn = document.getElementById('audio-toggle');
+let isPlaying = false;
+
+audioBtn.addEventListener('click', () => {
+  if (!isPlaying) {
+    audio.play();
+    audioBtn.innerHTML = "🔊 Pause Sound";
+    isPlaying = true;
+  } else {
+    audio.pause();
+    audioBtn.innerHTML = "🎵 Play Sound";
+    isPlaying = false;
+  }
+});
+</script>
 
 </body>
 </html>
