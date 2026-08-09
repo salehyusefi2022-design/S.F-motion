@@ -8,20 +8,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* ============================================================
-   NEONE / GLOW ARC THEME WITH FULL ANIMATIONS & AUDIO CONTROLS
-   ============================================================ */
 :root {
-  --bg-dark: #02040a;
+  --bg-dark: #030712;
   --text-main: #ffffff;
-  --text-muted: #8e9aae;
-  --accent-cyan: #00d2ff;
+  --text-muted: #94a3b8;
+  --accent-cyan: #38bdf8;
   --accent-blue: #3b82f6;
-  --glow-blue: rgba(59, 130, 246, 0.4);
-  --glass-bg: rgba(10, 14, 24, 0.65);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(15, 23, 42, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.1);
   --font-sans: 'Plus Jakarta Sans', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -36,23 +31,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* BACKGROUND PARTICLES & AMBIENT ANIMATION */
+/* BACKGROUND & PARTICLES */
 .bg-glow-container {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
-}
-
-.bg-ambient {
-  position: absolute;
-  top: -20%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80vw;
-  height: 600px;
-  background: radial-gradient(ellipse at top, rgba(37, 99, 235, 0.25) 0%, rgba(2, 4, 10, 0) 70%);
 }
 
 .particle {
@@ -142,11 +127,10 @@ nav {
   gap: 12px;
 }
 
-/* AUDIO CONTROL BUTTON */
 .btn-audio {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--glass-border);
-  color: var(--white);
+  color: #fff;
   padding: 8px 16px;
   border-radius: 20px;
   font-size: 13px;
@@ -160,7 +144,7 @@ nav {
 
 .btn-audio:hover {
   border-color: var(--accent-cyan);
-  box-shadow: 0 0 15px rgba(0, 210, 255, 0.2);
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
 }
 
 .btn-get-started {
@@ -180,53 +164,115 @@ nav {
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
 }
 
-/* HERO SECTION WITH EXACT NEONE ARC */
+/* HERO SECTION */
 .hero {
   position: relative;
   text-align: center;
-  padding-top: 70px;
+  padding-top: 100px;
   padding-bottom: 40px;
 }
 
-.arc-glow {
+/* ============================================================
+   EXACT NEONE ARC GLOW (دقیقاً مشابه تصویر رفرنس)
+   ============================================================ */
+.hero-arc-wrapper {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 450px;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.hero-arc-main {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 780px;
+  height: 780px;
+  border-radius: 50%;
+  border: 2.5px solid transparent;
+  border-top-color: #e0f2fe;
+  background: transparent;
+  box-shadow: 
+    0 -12px 35px 2px rgba(56, 189, 248, 0.8),
+    0 -30px 80px 10px rgba(59, 130, 246, 0.5),
+    inset 0 12px 35px rgba(56, 189, 248, 0.3);
+}
+
+.hero-arc-main::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 820px;
+  height: 820px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  border-top-color: rgba(186, 230, 253, 0.6);
+  filter: blur(1px);
+}
+
+.hero-arc-main::after {
+  content: '';
   position: absolute;
   top: -30px;
   left: 50%;
   transform: translateX(-50%);
-  width: 850px;
-  height: 380px;
-  border-radius: 50%;
-  background: transparent;
-  border-top: 2px solid rgba(147, 197, 253, 0.9);
-  box-shadow: 0 -15px 50px rgba(59, 130, 246, 0.6), inset 0 15px 50px rgba(59, 130, 246, 0.2);
-  filter: blur(0.5px);
-  pointer-events: none;
-  z-index: -1;
+  width: 600px;
+  height: 180px;
+  background: radial-gradient(ellipse at top, rgba(56, 189, 248, 0.35) 0%, rgba(3, 7, 18, 0) 75%);
+  filter: blur(20px);
+}
+
+/* VERTICAL LIGHT LINES BEHIND ARC */
+.light-lines {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 300px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 40px,
+    rgba(56, 189, 248, 0.03) 40px,
+    rgba(56, 189, 248, 0.03) 41px
+  );
+  mask-image: radial-gradient(ellipse at top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
+  -webkit-mask-image: radial-gradient(ellipse at top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 70%);
 }
 
 .hero-pill {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(15, 23, 42, 0.6);
   border: 1px solid var(--glass-border);
-  padding: 6px 16px;
+  padding: 8px 18px;
   border-radius: 20px;
   font-size: 13px;
   color: var(--text-muted);
   margin-bottom: 32px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .hero-pill span { color: #fff; font-weight: 500; }
 
 .hero-h1 {
-  font-size: clamp(44px, 6vw, 78px);
+  font-size: clamp(44px, 6vw, 76px);
   font-weight: 800;
-  line-height: 1.05;
+  line-height: 1.08;
   letter-spacing: -2.5px;
   margin-bottom: 24px;
-  background: linear-gradient(180deg, #ffffff 40%, #a5b4fc 100%);
+  background: linear-gradient(180deg, #ffffff 30%, #93c5fd 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -244,7 +290,7 @@ nav {
   display: flex;
   justify-content: center;
   gap: 14px;
-  margin-bottom: 70px;
+  margin-bottom: 80px;
 }
 
 .btn-main {
@@ -276,7 +322,7 @@ nav {
 
 .btn-sub:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.2); }
 
-/* DASHBOARD PREVIEW FRAME (REFERENCE STYLE) */
+/* DASHBOARD PREVIEW FRAME */
 .hero-dashboard-preview {
   max-width: 1000px;
   margin: 0 auto;
@@ -286,7 +332,7 @@ nav {
   border-top-right-radius: 16px;
   padding: 24px;
   backdrop-filter: blur(20px);
-  box-shadow: 0 -20px 80px rgba(0, 0, 0, 0.8), 0 0 40px rgba(59, 130, 246, 0.15);
+  box-shadow: 0 -20px 80px rgba(0, 0, 0, 0.9), 0 0 50px rgba(56, 189, 248, 0.15);
   position: relative;
 }
 
@@ -314,7 +360,7 @@ nav {
 @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr; } .nav-links { display: none; } }
 
 .work-card {
-  background: rgba(15, 22, 38, 0.6);
+  background: rgba(15, 23, 42, 0.6);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
   overflow: hidden;
@@ -326,8 +372,8 @@ nav {
 
 .work-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(0, 210, 255, 0.4);
-  box-shadow: 0 10px 30px rgba(0, 210, 255, 0.15);
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 10px 30px rgba(56, 189, 248, 0.15);
 }
 
 .work-img {
@@ -348,14 +394,6 @@ nav {
 
 /* SECTIONS */
 section { padding: 90px 0; border-top: 1px solid var(--glass-border); }
-
-.sec-title {
-  font-size: 32px;
-  font-weight: 700;
-  letter-spacing: -1px;
-  margin-bottom: 40px;
-  text-align: center;
-}
 
 /* MEETING FORM SECTION */
 .booking-box {
@@ -386,7 +424,7 @@ section { padding: 90px 0; border-top: 1px solid var(--glass-border); }
 
 .form-group input:focus, .form-group select:focus {
   border-color: var(--accent-cyan);
-  box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
 }
 
 .btn-form {
@@ -403,7 +441,7 @@ section { padding: 90px 0; border-top: 1px solid var(--glass-border); }
 
 .btn-form:hover {
   background: var(--accent-cyan);
-  box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
 }
 
 footer {
@@ -424,7 +462,6 @@ footer {
 </audio>
 
 <div class="bg-glow-container">
-  <div class="bg-ambient"></div>
   <div class="particle" style="left: 15%; animation-delay: 0s;"></div>
   <div class="particle" style="left: 45%; animation-delay: 2s;"></div>
   <div class="particle" style="left: 75%; animation-delay: 4s;"></div>
@@ -448,9 +485,13 @@ footer {
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO SECTION -->
   <div class="hero">
-    <div class="arc-glow"></div>
+    <!-- EXACT NEONE ARC SHAPE WITH VERTICAL LINES -->
+    <div class="hero-arc-wrapper">
+      <div class="light-lines"></div>
+      <div class="hero-arc-main"></div>
+    </div>
     
     <div class="hero-pill fade-in-entry delay-1">
       ✦ <span>Saleh Yusefi</span> — Video Editor & Sound Designer
@@ -465,7 +506,7 @@ footer {
       <a href="#work" class="btn-sub">Watch Portfolio</a>
     </div>
 
-    <!-- PREVIEW BOX (NEONE STYLE) -->
+    <!-- PREVIEW BOX -->
     <div class="hero-dashboard-preview fade-in-entry delay-3" id="work">
       <div class="dash-header">
         <div class="dash-dots">
